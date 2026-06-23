@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mallyka Aurora Augest — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #1A6BFF; --blue-light: #E8F0FF; --teal: #0F9B8E; --teal-light: #E0F5F3;
+    --dark: #0F1117; --gray: #6B7280; --gray-light: #F4F5F7;
+    --border: #E5E7EB; --text: #111827; --muted: #6B7280;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--gray-light); color: var(--text); min-height: 100vh; }
+  .layout { display: flex; min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 280px; background: var(--dark); position: fixed;
+    top: 0; left: 0; bottom: 0; padding: 2.5rem 1.75rem;
+    display: flex; flex-direction: column; gap: 2rem; overflow-y: auto; z-index: 100;
+  }
+  .avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: white;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .sidebar-name { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; color: white; line-height: 1.3; margin-bottom: 4px; }
+  .sidebar-role { font-size: 12px; color: #9CA3AF; line-height: 1.5; }
+  .sidebar-divider { height: 0.5px; background: #2D3148; }
+  .sidebar-section-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #6B7280; margin-bottom: 0.75rem; font-weight: 500; }
+  .nav-link { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; color: #9CA3AF; text-decoration: none; font-size: 13px; transition: all 0.2s; margin-bottom: 2px; }
+  .nav-link:hover, .nav-link.active { background: #1C1F2A; color: white; }
+  .nav-link svg { opacity: 0.6; flex-shrink: 0; }
+  .nav-link:hover svg, .nav-link.active svg { opacity: 1; }
+  .contact-item { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #9CA3AF; margin-bottom: 10px; }
+  .contact-item svg { flex-shrink: 0; opacity: 0.6; }
+  .contact-item a { color: #60A5FA; text-decoration: none; }
+  .contact-item a:hover { text-decoration: underline; }
+  .badge-pill { display: inline-block; font-size: 10px; padding: 3px 9px; border-radius: 20px; margin: 2px; font-weight: 500; }
+  .badge-blue { background: #1E3A5F; color: #60A5FA; }
+  .badge-teal { background: #0D3330; color: #34D399; }
+  .badge-amber { background: #3D2A00; color: #FBBF24; }
+
+  /* MAIN */
+  .main { margin-left: 280px; flex: 1; padding: 2.5rem 2rem; max-width: calc(100% - 280px); }
+  .section { margin-bottom: 3rem; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+  .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600; color: var(--text); }
+  .section-line { flex: 1; height: 0.5px; background: var(--border); }
+  .section-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  /* HERO */
+  .hero-card { background: var(--dark); border-radius: 16px; padding: 2.5rem; margin-bottom: 2rem; position: relative; overflow: hidden; }
+  .hero-card::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(26,107,255,0.2) 0%, transparent 70%); }
+  .hero-card::after { content: ''; position: absolute; bottom: -40px; left: 30%; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(15,155,142,0.15) 0%, transparent 70%); }
+  .hero-name { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: white; margin-bottom: 6px; position: relative; z-index: 1; }
+  .hero-title { font-size: 14px; color: #9CA3AF; margin-bottom: 1.25rem; position: relative; z-index: 1; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; position: relative; z-index: 1; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; border: 1px solid; }
+  .hb-blue { background: rgba(26,107,255,0.15); color: #60A5FA; border-color: rgba(26,107,255,0.3); }
+  .hb-teal { background: rgba(15,155,142,0.15); color: #34D399; border-color: rgba(15,155,142,0.3); }
+  .hb-amber { background: rgba(251,191,36,0.12); color: #FBBF24; border-color: rgba(251,191,36,0.3); }
+  .hero-desc { font-size: 14px; line-height: 1.75; color: #9CA3AF; max-width: 580px; position: relative; z-index: 1; }
+
+  /* EXPERIENCE */
+  .exp-card { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 1.5rem; }
+  .exp-logo { width: 44px; height: 44px; border-radius: 10px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .exp-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .exp-org { font-size: 13px; color: var(--blue); font-weight: 500; margin-bottom: 2px; }
+  .exp-period { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .task-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .task-list li { font-size: 13px; color: #374151; line-height: 1.55; padding-left: 16px; position: relative; }
+  .task-list li::before { content: ''; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+
+  /* DOC BUTTONS */
+  .doc-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .doc-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 7px; font-size: 12px; font-weight: 500;
+    text-decoration: none; border: 1px solid; cursor: pointer; transition: all 0.15s;
+    background: white;
+  }
+  .doc-btn:hover { opacity: 0.8; transform: translateY(-1px); }
+  .doc-btn.github { color: #374151; border-color: #D1D5DB; }
+  .doc-btn.github:hover { background: #F9FAFB; }
+  .doc-btn.pdf { color: #DC2626; border-color: #FECACA; background: #FFF5F5; }
+  .doc-btn.photo { color: #0F9B8E; border-color: #99E6DF; background: #F0FDFB; }
+  .doc-btn.placeholder { color: #9CA3AF; border-color: #E5E7EB; border-style: dashed; font-style: italic; cursor: default; }
+  .doc-btn.placeholder:hover { opacity: 1; transform: none; }
+  .privacy-note { display:flex; align-items:flex-start; gap:8px; margin-top:14px; padding:10px 12px; background:#F8F9FA; border:1px solid #E5E7EB; border-radius:8px; font-size:11.5px; color:#6B7280; line-height:1.5; }
+  .doc-btn.placeholder:hover { opacity: 1; transform: none; }
+
+  /* PHOTO GALLERY inside card */
+  .photo-gallery { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .photo-thumb {
+    width: 80px; height: 60px; border-radius: 6px; object-fit: cover;
+    border: 1px solid var(--border); cursor: pointer; transition: transform 0.15s;
+  }
+  .photo-thumb:hover { transform: scale(1.05); }
+  .photo-placeholder {
+    width: 80px; height: 60px; border-radius: 6px;
+    border: 1.5px dashed #D1D5DB; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2px;
+    font-size: 9px; color: #9CA3AF; cursor: default;
+  }
+
+  /* PROJECTS */
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+  .proj-card { background: white; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+  .proj-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .proj-img-wrap { width: 100%; height: 160px; overflow: hidden; position: relative; background: #F3F4F6; cursor: pointer; }
+  .proj-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .proj-img-wrap:hover img { transform: scale(1.04); }
+  .proj-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #9CA3AF; font-size: 12px; }
+  .proj-img-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); opacity: 0; transition: opacity 0.2s; display: flex; align-items: center; justify-content: center; }
+  .proj-img-wrap:hover .proj-img-overlay { opacity: 1; }
+  .proj-img-overlay span { color: white; font-size: 12px; font-weight: 500; }
+  .proj-body { padding: 1.1rem 1.25rem; }
+  .proj-icon-wrap { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+  .proj-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+  .proj-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 0; }
+  .proj-tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; background: var(--gray-light); color: var(--muted); border: 1px solid var(--border); font-weight: 500; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .skill-group { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 1.1rem 1.25rem; }
+  .skill-group-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .skill-tag { display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 6px; margin: 3px 3px 0 0; }
+
+  /* CERT */
+  .cert-card { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 14px; }
+  .cert-icon { width: 40px; height: 40px; border-radius: 10px; background: #FEF9C3; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
+  .cert-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .cert-org { font-size: 12px; color: var(--muted); }
+
+  /* LIGHTBOX */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
+  .lightbox.open { display: flex; }
+  .lightbox-inner { position: relative; max-width: 90vw; max-height: 85vh; }
+  .lightbox-inner img { max-width: 100%; max-height: 85vh; border-radius: 8px; object-fit: contain; display: block; }
+  .lightbox-close { position: absolute; top: -36px; right: 0; background: none; border: none; color: white; font-size: 24px; cursor: pointer; line-height: 1; }
+  .lightbox-caption { color: #D1D5DB; font-size: 13px; text-align: center; margin-top: 10px; }
+
+  /* HOW-TO BOX */
+  .howto-box { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 13px; color: #92400E; line-height: 1.6; }
+  .howto-box strong { font-weight: 600; display: block; margin-bottom: 6px; }
+  .howto-box code { background: #FEF3C7; padding: 1px 5px; border-radius: 4px; font-family: monospace; font-size: 12px; }
+
+  .privacy-note { display:flex; align-items:flex-start; gap:8px; margin-top:14px; padding:10px 12px; background:#F8F9FA; border:1px dashed #D1D5DB; border-radius:8px; font-size:11.5px; color:#6B7280; line-height:1.55; }
+  .privacy-note strong { color:#374151; }
+  @media (max-width: 768px) {
+    .sidebar { width: 100%; position: relative; height: auto; }
+    .main { margin-left: 0; max-width: 100%; padding: 1.5rem 1rem; }
+    .layout { flex-direction: column; }
+    .hero-name { font-size: 24px; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div>
+    <div class="avatar"
+     onclick="openLightbox('foto-profil.jpg','Mallyka Aurora Augest')"
+     style="cursor:pointer;">
+
+  <img src="foto-profil.jpg"
+       alt="Mallyka Aurora Augest"
+       onerror="this.style.display='none'">
+
+  <span id="avatar-initials">MA</span>
+
+</div>
+    <div style="height:12px"></div>
+    <div class="sidebar-name">Mallyka Aurora Augest</div>
+    <div class="sidebar-role">Telecommunications Engineering<br>State Polytechnic of Malang</div>
+  </div>
+  <div class="sidebar-divider"></div>
+  <nav>
+    <div class="sidebar-section-label">Navigation</div>
+    <a href="#about" class="nav-link active">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>About
+    </a>
+    <a href="#experience" class="nav-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Experience
+    </a>
+    <a href="#projects" class="nav-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg>Projects
+    </a>
+    <a href="#skills" class="nav-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Skills
+    </a>
+    <a href="#awards" class="nav-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/></svg>Awards
+    </a>
+  </nav>
+  <div class="sidebar-divider"></div>
+  <div>
+    <div class="sidebar-section-label">Contact</div>
+    <div class="contact-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      <a href="https://www.linkedin.com/in/mallyka-aurora-augest/" target="_blank">LinkedIn Profile</a>
+    </div>
+    <div class="contact-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span>Malang, East Java, Indonesia</span>
+    </div>
+  </div>
+  <div class="sidebar-divider"></div>
+  <div>
+    <div class="sidebar-section-label">Focus Areas</div>
+    <span class="badge-pill badge-blue">IT Support</span>
+    <span class="badge-pill badge-blue">Networking</span>
+    <span class="badge-pill badge-teal">IoT</span>
+    <span class="badge-pill badge-teal">Arduino</span>
+    <span class="badge-pill badge-amber">KT&G Scholar</span>
+    <span class="badge-pill badge-blue">Telecoms</span>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="hero-card">
+      <div class="hero-name">Mallyka Aurora Augest</div>
+      <div class="hero-title">IT Support · Network Technical Support · IoT Enthusiast · Telecommunications Engineering</div>
+      <div class="hero-badges">
+        <span class="hero-badge hb-blue">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>IT Support
+        </span>
+        <span class="hero-badge hb-blue">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>Network Technical Support
+        </span>
+        <span class="hero-badge hb-teal">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>IoT Enthusiast
+        </span>
+        <span class="hero-badge hb-amber">★ KT&G Scholarship Awardee</span>
+      </div>
+      <div class="hero-desc">Passionate about building reliable network infrastructure and smart IoT systems. Experienced in hands-on IT support, VLAN configuration, and microcontroller based projects combining technical depth with a drive for practical innovation in telecommunications engineering.</div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EFF6FF">
+        <svg width="18" height="18" fill="none" stroke="#1A6BFF" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      </div>
+      <h2>Experience</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="exp-card">
+      <div style="display:flex;gap:16px;align-items:flex-start">
+        <div class="exp-logo">
+          <svg width="22" height="22" fill="none" stroke="#1A6BFF" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div style="flex:1">
+          <div class="exp-title">Information Technology Technical Support</div>
+          <div class="exp-org">Universitas Brawijaya · Apprenticeship</div>
+          <div class="exp-period">Nov 2025 – May 2026 · 7 months · On-site</div>
+          <ul class="task-list">
+            <li>Provided technical support by troubleshooting and maintaining IT equipment (PCs, laptops, printers, LAN) to ensure smooth hospital operations.</li>
+            <li>Configured and managed network infrastructure including VLAN, access ports, trunk links, and link aggregation for network stability and segmentation.</li>
+            <li>Diagnosed and resolved technical issues efficiently, reducing system downtime and improving service reliability.</li>
+            <li>Performed routine monitoring and maintenance of IT systems for optimal performance and disruption prevention.</li>
+            <li>Contributed to UI/UX design for the Halo RSUB internal application, improving patient registration efficiency and user experience.</li>
+            <li>Supported hospital accreditation activities by ensuring IT infrastructure readiness and maintaining stable system performance.</li>
+          </ul>
+
+          <!-- FOTO EXPERIENCE -->
+          <div class="photo-gallery" id="exp-gallery">
+            <img class="photo-thumb" src="magang-1.jpg" alt="Dokumentasi magang 1" onerror="this.style.display='none'" onclick="openLightbox(this.src,'Magang IT Support – Universitas Brawijaya')">
+            <img class="photo-thumb" src="magang-2.jpg" alt="Dokumentasi magang 2" onerror="this.style.display='none'" onclick="openLightbox(this.src,'Managed Network Infrastructure')">
+            <img class="photo-thumb" src="magang-3.jpg" alt="Dokumentasi magang 3" onerror="this.style.display='none'" onclick="openLightbox(this.src,'Configured Network Infrastructure')">
+            <img class="photo-thumb" src="magang-4.jpg" alt="Dokumentasi magang 4" onerror="this.style.display='none'" onclick="openLightbox(this.src,'Maintenance Network Infrastructure')">
+            <img class="photo-thumb" src="magang-5.jpg" alt="Dokumentasi magang 5" onerror="this.style.display='none'" onclick="openLightbox(this.src,'Printer Repair')">
+            <img class="photo-thumb" src="magang-6.jpg" alt="Dokumentasi magang 6" onerror="this.style.display='none'" onclick="openLightbox(this.src,'UI/UX Halo RSUB')">
+          
+          </div>
+
+          <!-- TOMBOL DOC -->
+          <div class="doc-btns">
+            <a class="doc-btn pdf" href="sertifikat-magang.pdf" target="_blank">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              Internship Certificate (PDF)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <!-- EXPERIENCE 2 -->
+<div class="exp-card" style="margin-top:16px;">
+  <div style="display:flex;gap:16px;align-items:flex-start">
+
+    <div class="exp-logo">
+      <svg width="22" height="22" fill="none" stroke="#1A6BFF" stroke-width="1.8" viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+
+    <div style="flex:1">
+
+      <div class="exp-title">Telecommunications Technician</div>
+
+      <div class="exp-org">
+        Pangkalan TNI AU Abdulrachman Saleh · Internship
+      </div>
+
+      <div class="exp-period">
+        Jul 2024 – Nov 2024 · 5 months · On-site
+      </div>
+
+      <ul class="task-list">
+        <li>Developed a Biometric Attendance System using the AS608 fingerprint sensor, including system design, implementation, and testing.</li>
+
+        <li>Performed maintenance and troubleshooting of mobile and radio communication equipment to ensure operational readiness and service reliability.</li>
+
+        <li>Integrated microcontrollers, sensors, and software components to support communication and attendance monitoring systems.</li>
+
+        <li>Assisted in diagnosing and resolving technical issues related to telecommunications devices and supporting infrastructure.</li>
+
+        <li>Gained hands-on experience in electronics, embedded systems, and hardware-software integration within a military communication environment.</li>
+      </ul>
+
+      <!-- FOTO -->
+      <div class="photo-gallery">
+
+        <img class="photo-thumb"
+          src="tni-1.jpg"
+          alt="Fingerprint Attendance"
+          onclick="openLightbox(this.src,'Ground Check Localizer')">
+
+        <img class="photo-thumb"
+          src="tni-2.jpg"
+          alt="Radio Communication"
+          onclick="openLightbox(this.src,'Hardware Wiring and System Integration for Biometric Attendance System')">
+
+        <img class="photo-thumb"
+          src="tni-3.jpg"
+          alt="Internship Activity"
+          onclick="openLightbox(this.src,'Completed Biometric Attendance System Using AS608')">
+        
+        <img class="photo-thumb"
+          src="tni-4.jpg"
+          alt="Maintenance"
+          onclick="openLightbox(this.src,'Restored Fiber Optic Connectivity After Cable Failure')">
+
+
+      </div>
+
+      <!-- DOCUMENT -->
+      <div class="doc-btns">
+
+        <a class="doc-btn pdf"
+          href="form-nilai-pkl.pdf"
+          target="_blank">
+
+          <svg width="14" height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24">
+
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+
+          </svg>
+
+          Internship Evaluation Form (PDF)
+
+        </a>
+
+        <a class="doc-btn pdf"
+          href="laporan-pkl.pdf"
+          target="_blank">
+
+          <svg width="14" height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24">
+
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+
+          </svg>
+
+          Internship Final Report (PDF)
+
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</section>   
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#F0FDF4">
+        <svg width="18" height="18" fill="none" stroke="#0F9B8E" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg>
+      </div>
+      <h2>Projects</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="proj-grid">
+
+      <!-- PROJECT 1 -->
+      <div class="proj-card">
+        <div class="proj-img-wrap" onclick="openLightbox('foto-gyro.jpg','Application of Gyro Sensor in Goggles for Controlling Camera Direction on RC Cars')">
+          <img src="foto-gyro.jpg" alt="Gyro Sensor Project" onerror="this.parentElement.querySelector('.proj-img-placeholder').style.display='flex';this.style.display='none'">
+          <div class="proj-img-placeholder" style="display:none">
+            <svg width="28" height="28" fill="none" stroke="#D1D5DB" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Belum ada foto — ganti URL</span>
+          </div>
+          <div class="proj-img-overlay"><span>🔍 Lihat foto</span></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-icon-wrap" style="background:#EFF6FF">
+            <svg width="20" height="20" fill="none" stroke="#1A6BFF" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div class="proj-title">Application of Gyro Sensor in Goggles for Controlling Camera Direction on RC Cars</div>
+          <div class="proj-desc">Gyro-based head tracking system for real-time camera pan-tilt control on RC vehicles using wearable goggles and LoRa communication.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Microcontrollers</span><span class="proj-tag">C++</span><span class="proj-tag">Gyro Sensor</span><span class="proj-tag">IoT</span><span class="proj-tag">FPV</span>
+          </div>
+          <div class="doc-btns">
+            <a class="doc-btn github" href="https://github.com/aw13131313/gyro-goggles-camera-control" target="_blank">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a class="doc-btn pdf" href="laporan-gyro.pdf" target="_blank">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Laporan PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="proj-card">
+        <div class="proj-img-wrap" onclick="openLightbox('foto-streetlight.jpg','Arduino Street Lighting')">
+          <img src="foto-streetlight.jpg" alt="Street Lighting Project" onerror="this.parentElement.querySelector('.proj-img-placeholder').style.display='flex';this.style.display='none'">
+          <div class="proj-img-placeholder" style="display:none">
+            <svg width="28" height="28" fill="none" stroke="#D1D5DB" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Belum ada foto — ganti URL</span>
+          </div>
+          <div class="proj-img-overlay"><span>🔍 Lihat foto</span></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-icon-wrap" style="background:#F0FDF4">
+            <svg width="20" height="20" fill="none" stroke="#0F9B8E" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg>
+          </div>
+          <div class="proj-title">Arduino Intelligent Street Lighting System</div>
+          <div class="proj-desc">Energy-optimizing street lighting using Arduino with LDR and motion sensors. Dims when unoccupied, brightens on movement reducing costs and improving sustainability.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Arduino</span><span class="proj-tag">LDR Sensor</span><span class="proj-tag">Motion Sensor</span><span class="proj-tag">IoT</span>
+          </div>
+          <div class="doc-btns">
+            <a class="doc-btn github" href="https://github.com/aw13131313/arduino-intelligent-street-lighting-system" target="_blank">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a class="doc-btn pdf" href="laporan-streetlight.pdf" target="_blank">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Laporan PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="proj-card">
+        <div class="proj-img-wrap" onclick="openLightbox('foto-eyemouse.jpg','EyeMouse System')">
+          <img src="foto-eyemouse.jpg" alt="EyeMouse Project" onerror="this.parentElement.querySelector('.proj-img-placeholder').style.display='flex';this.style.display='none'">
+          <div class="proj-img-placeholder" style="display:none">
+            <svg width="28" height="28" fill="none" stroke="#D1D5DB" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Belum ada foto — ganti URL</span>
+          </div>
+          <div class="proj-img-overlay"><span>🔍 Lihat foto</span></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-icon-wrap" style="background:#FFF7ED">
+            <svg width="20" height="20" fill="none" stroke="#D97706" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 0 20M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          </div>
+          <div class="proj-title">EyeMouse: Eye-Tracking Computer Interaction</div>
+          <div class="proj-desc">Replaces traditional mouse input with natural eye movements via gaze-tracking sensors enhancing accessibility and productivity for all users.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">JavaScript</span><span class="proj-tag">Java</span><span class="proj-tag">Eye Tracking</span><span class="proj-tag">Accessibility</span>
+          </div>
+          <div class="doc-btns">
+            <a class="doc-btn github" href="https://github.com/aw13131313/eye-mouse" target="_blank">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a class="doc-btn pdf" href="laporan-eyemouse.pdf" target="_blank">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Laporan PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 -->
+      <div class="proj-card">
+        <div class="proj-img-wrap" onclick="openLightbox('foto-antenna.jpg','Microwave Antenna Malang–Pasuruan')">
+          <img src="foto-antenna.jpg" alt="Antenna Project" onerror="this.parentElement.querySelector('.proj-img-placeholder').style.display='flex';this.style.display='none'">
+          <div class="proj-img-placeholder" style="display:none">
+            <svg width="28" height="28" fill="none" stroke="#D1D5DB" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Belum ada foto — ganti URL</span>
+          </div>
+          <div class="proj-img-overlay"><span>🔍 Lihat foto</span></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-icon-wrap" style="background:#F5F3FF">
+            <svg width="20" height="20" fill="none" stroke="#7C3AED" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+          </div>
+          <div class="proj-title">Microwave Antenna Installation – Malang to Pasuruan</div>
+          <div class="proj-desc">Designed and planned long-distance microwave link with link budget analysis, LOS evaluation, and cost-efficient equipment selection.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Antennas</span><span class="proj-tag">DAS</span><span class="proj-tag">Link Budget</span><span class="proj-tag">RF Planning</span>
+          </div>
+          <div class="doc-btns">
+            <a class="doc-btn pdf" href="laporan-antenna.pdf" target="_blank">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Laporan PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 5 -->
+      <div class="proj-card">
+        <div class="proj-img-wrap" onclick="openLightbox('foto-dbmigration.jpg','Database Migration Navicat')">
+          <img src="foto-dbmigration.jpg" alt="DB Migration Project" onerror="this.parentElement.querySelector('.proj-img-placeholder').style.display='flex';this.style.display='none'">
+          <div class="proj-img-placeholder" style="display:none">
+            <svg width="28" height="28" fill="none" stroke="#D1D5DB" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Belum ada foto — ganti URL</span>
+          </div>
+          <div class="proj-img-overlay"><span>🔍 Lihat foto</span></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-icon-wrap" style="background:#FFF1F2">
+            <svg width="20" height="20" fill="none" stroke="#E11D48" stroke-width="1.8" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div class="proj-title">Database Migration via Navicat (SQL)</div>
+          <div class="proj-desc">Migrated legacy application database to a new system using custom SQL functions in Navicat, ensuring data integrity during full transition.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">SQL</span><span class="proj-tag">Navicat</span><span class="proj-tag">Database</span><span class="proj-tag">Migration</span>
+          </div>
+          <div class="privacy-note">
+            <svg width="14" height="14" fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Dokumentasi tidak dapat dipublikasikan. Proyek ini dikerjakan dalam lingkungan internal perusahaan dan seluruh aset serta data bersifat <strong>konfidensial</strong> sesuai kebijakan privasi yang berlaku.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 6 -->
+      <div class="proj-card">
+        <div class="proj-img-wrap" onclick="openLightbox('foto-backup.jpg','Automated Server Backup')">
+          <img src="foto-backup.jpg" alt="Backup Project" onerror="this.parentElement.querySelector('.proj-img-placeholder').style.display='flex';this.style.display='none'">
+          <div class="proj-img-placeholder" style="display:none">
+            <svg width="28" height="28" fill="none" stroke="#D1D5DB" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Belum ada foto — ganti URL</span>
+          </div>
+          <div class="proj-img-overlay"><span>🔍 Lihat foto</span></div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-icon-wrap" style="background:#F0F9FF">
+            <svg width="20" height="20" fill="none" stroke="#0284C7" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="proj-title">Automated Server Backup via Shared Folder & Cronjob</div>
+          <div class="proj-desc">Automated server-to-PC backup pipeline using shared folder mounting and cronjob scheduling for reliable, hands-free data backups.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Linux</span><span class="proj-tag">Cronjob</span><span class="proj-tag">Mount</span><span class="proj-tag">Automation</span>
+          </div>
+          <div class="privacy-note">
+            <svg width="14" height="14" fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Dokumentasi tidak dapat dipublikasikan. Proyek ini dikerjakan dalam lingkungan internal perusahaan dan seluruh aset serta data bersifat <strong>konfidensial</strong> sesuai kebijakan privasi yang berlaku.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#F0FDF4">
+        <svg width="18" height="18" fill="none" stroke="#0F9B8E" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h2>Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title" style="color:#1A6BFF">Networking</div>
+        <span class="skill-tag" style="background:#EFF6FF;color:#1A6BFF">VLAN Configuration</span>
+        <span class="skill-tag" style="background:#EFF6FF;color:#1A6BFF">LAN Troubleshooting</span>
+        <span class="skill-tag" style="background:#EFF6FF;color:#1A6BFF">Link Aggregation</span>
+        <span class="skill-tag" style="background:#EFF6FF;color:#1A6BFF">Trunk Links</span>
+        <span class="skill-tag" style="background:#EFF6FF;color:#1A6BFF">Microwave Link</span>
+        <span class="skill-tag" style="background:#EFF6FF;color:#1A6BFF">Antenna Planning</span>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" style="color:#0F9B8E">IoT & Hardware</div>
+        <span class="skill-tag" style="background:#E0F5F3;color:#0F9B8E">Arduino</span>
+        <span class="skill-tag" style="background:#E0F5F3;color:#0F9B8E">Microcontrollers</span>
+        <span class="skill-tag" style="background:#E0F5F3;color:#0F9B8E">Gyro Sensor</span>
+        <span class="skill-tag" style="background:#E0F5F3;color:#0F9B8E">LDR Sensor</span>
+        <span class="skill-tag" style="background:#E0F5F3;color:#0F9B8E">C++</span>
+        <span class="skill-tag" style="background:#E0F5F3;color:#0F9B8E">Eye Tracking</span>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" style="color:#7C3AED">Development</div>
+        <span class="skill-tag" style="background:#F5F3FF;color:#7C3AED">JavaScript</span>
+        <span class="skill-tag" style="background:#F5F3FF;color:#7C3AED">Java</span>
+        <span class="skill-tag" style="background:#F5F3FF;color:#7C3AED">SQL</span>
+        <span class="skill-tag" style="background:#F5F3FF;color:#7C3AED">Navicat</span>
+        <span class="skill-tag" style="background:#F5F3FF;color:#7C3AED">UI/UX Design</span>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title" style="color:#DC2626">Sysadmin</div>
+        <span class="skill-tag" style="background:#FFF1F2;color:#DC2626">Linux</span>
+        <span class="skill-tag" style="background:#FFF1F2;color:#DC2626">Cronjob</span>
+        <span class="skill-tag" style="background:#FFF1F2;color:#DC2626">Server Backup</span>
+        <span class="skill-tag" style="background:#FFF1F2;color:#DC2626">IT Hardware Support</span>
+        <span class="skill-tag" style="background:#FFF1F2;color:#DC2626">System Monitoring</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards" class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#FFFBEB">
+        <svg width="18" height="18" fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/></svg>
+      </div>
+      <h2>Awards & Recognition</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🏆</div>
+      <div>
+        <div class="cert-name">KT&G (Korea Tomorrow & Global) Scholarship Awardee</div>
+        <div class="cert-org">Korea Tomorrow & Global Corporation · Scholarship Program</div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="text-align:center;padding:2rem 0 1rem;color:var(--muted);font-size:12px;border-top:1px solid var(--border)">
+    © 2026 Mallyka Aurora Augest · Malang, East Java, Indonesia
+  </footer>
+
+</main>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<script>
+  // Lightbox
+  function openLightbox(src, caption) {
+    if (!src || src.startsWith('GANTI_URL')) return;
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-caption').textContent = caption || '';
+    document.getElementById('lightbox').classList.add('open');
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // Hide initials if photo loads
+  const avatarImg = document.querySelector('.avatar img');
+  const avatarInitials = document.getElementById('avatar-initials');
+  if (avatarImg) {
+    avatarImg.onload = () => { if(avatarInitials) avatarInitials.style.display = 'none'; };
+    avatarImg.onerror = () => { avatarImg.style.display = 'none'; };
+  }
+
+  // Nav highlight on scroll
+  const links = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    links.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#' + current); });
+  });
+</script>
+</body>
+</html>
