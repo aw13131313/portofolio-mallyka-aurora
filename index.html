@@ -42,6 +42,15 @@
   .contact-item svg { flex-shrink: 0; opacity: 0.6; }
   .contact-item a { color: #60A5FA; text-decoration: none; }
   .contact-item a:hover { text-decoration: underline; }
+  .download-cv-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 18px; padding: 10px 18px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    color: white; font-size: 13px; font-weight: 600;
+    text-decoration: none; transition: opacity 0.15s, transform 0.15s;
+    position: relative; z-index: 1;
+  }
+  .download-cv-btn:hover { opacity: 0.9; transform: translateY(-1px); }
   .badge-pill { display: inline-block; font-size: 10px; padding: 3px 9px; border-radius: 20px; margin: 2px; font-weight: 500; }
   .badge-blue { background: #1E3A5F; color: #60A5FA; }
   .badge-teal { background: #0D3330; color: #34D399; }
@@ -135,10 +144,33 @@
   .skill-tag { display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 6px; margin: 3px 3px 0 0; }
 
   /* CERT */
-  .cert-card { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 14px; }
+  .cert-card { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 1.1rem 1.25rem; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .cert-proof-btn {
+    margin-left: auto; flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: 7px; font-size: 12px; font-weight: 500;
+    text-decoration: none; border: 1px solid #FDE68A; color: #B45309; background: #FFFBEB;
+    transition: all 0.15s;
+  }
+  .cert-proof-btn:hover { opacity: 0.8; transform: translateY(-1px); }
   .cert-icon { width: 40px; height: 40px; border-radius: 10px; background: #FEF9C3; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
   .cert-name { font-size: 14px; font-weight: 500; color: var(--text); }
   .cert-org { font-size: 12px; color: var(--muted); }
+  .cert-list { display: flex; flex-direction: column; gap: 10px; }
+  .cert-row { background: white; border-radius: 12px; border: 1px solid var(--border); padding: 1.1rem 1.25rem; display: flex; align-items: flex-start; gap: 14px; }
+  .cert-row-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+  .cert-row-content { flex: 1; min-width: 0; }
+  .cert-row-name { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .cert-row-org { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .cert-row-desc { font-size: 12px; color: #4B5563; line-height: 1.55; }
+  .cert-pdf-btn {
+    margin-left: auto; flex-shrink: 0;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 7px; font-size: 12px; font-weight: 500;
+    text-decoration: none; border: 1px solid #FECACA; color: #DC2626; background: #FFF5F5;
+    transition: all 0.15s;
+  }
+  .cert-pdf-btn:hover { opacity: 0.8; transform: translateY(-1px); }
 
   /* LIGHTBOX */
   .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
@@ -201,6 +233,9 @@
     <a href="#skills" class="nav-link">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Skills
     </a>
+    <a href="#certifications" class="nav-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg>Certifications
+    </a>
     <a href="#awards" class="nav-link">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"/></svg>Awards
     </a>
@@ -208,6 +243,14 @@
   <div class="sidebar-divider"></div>
   <div>
     <div class="sidebar-section-label">Contact</div>
+    <div class="contact-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <a href="tel:+62815157992132">+62 815-1579-9132</a>
+    </div>
+    <div class="contact-item">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=auroraaugest@gmail.com&su=Portfolio%20Inquiry" target="_blank" id="email-link">auroraaugest@gmail.com</a>
+    </div>
     <div class="contact-item">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       <a href="https://www.linkedin.com/in/mallyka-aurora-augest/" target="_blank">LinkedIn Profile</a>
@@ -250,6 +293,10 @@
         <span class="hero-badge hb-amber">★ KT&G Scholarship Awardee</span>
       </div>
       <div class="hero-desc">Passionate about building reliable network infrastructure and smart IoT systems. Experienced in hands-on IT support, VLAN configuration, and microcontroller based projects combining technical depth with a drive for practical innovation in telecommunications engineering.</div>
+      <a href="CV-Mallyka_Aurora_Augest_ATS.pdf" download class="download-cv-btn">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download CV
+      </a>
     </div>
   </section>
 
@@ -270,7 +317,7 @@
         </div>
         <div style="flex:1">
           <div class="exp-title">Information Technology Technical Support</div>
-          <div class="exp-org">Universitas Brawijaya · Apprenticeship</div>
+          <div class="exp-org">Universitas Brawijaya · MagangHub Kemnaker</div>
           <div class="exp-period">Nov 2025 – May 2026 · 7 months · On-site</div>
           <ul class="task-list">
             <li>Provided technical support by troubleshooting and maintaining IT equipment (PCs, laptops, printers, LAN) to ensure smooth hospital operations.</li>
@@ -452,7 +499,7 @@
             </a>
             <a class="doc-btn pdf" href="laporan-gyro.pdf" target="_blank">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Laporan PDF
+              View Report (PDF)
             </a>
           </div>
         </div>
@@ -473,7 +520,7 @@
             <svg width="20" height="20" fill="none" stroke="#0F9B8E" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg>
           </div>
           <div class="proj-title">Arduino Intelligent Street Lighting System</div>
-          <div class="proj-desc">Energy-optimizing street lighting using Arduino with LDR and motion sensors. Dims when unoccupied, brightens on movement reducing costs and improving sustainability.</div>
+          <div class="proj-desc">Energy optimizing street lighting using Arduino with LDR and motion sensors. Dims when unoccupied, brightens on movement reducing costs and improving sustainability.</div>
           <div class="proj-tags">
             <span class="proj-tag">Arduino</span><span class="proj-tag">LDR Sensor</span><span class="proj-tag">Motion Sensor</span><span class="proj-tag">IoT</span>
           </div>
@@ -484,7 +531,7 @@
             </a>
             <a class="doc-btn pdf" href="laporan-streetlight.pdf" target="_blank">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Laporan PDF
+              View Report (PDF)
             </a>
           </div>
         </div>
@@ -516,7 +563,7 @@
             </a>
             <a class="doc-btn pdf" href="laporan-eyemouse.pdf" target="_blank">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Laporan PDF
+              View Report (PDF)
             </a>
           </div>
         </div>
@@ -544,7 +591,7 @@
           <div class="doc-btns">
             <a class="doc-btn pdf" href="laporan-antenna.pdf" target="_blank">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Laporan PDF
+              View Report (PDF)
             </a>
           </div>
         </div>
@@ -571,7 +618,7 @@
           </div>
           <div class="privacy-note">
             <svg width="14" height="14" fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Dokumentasi tidak dapat dipublikasikan. Proyek ini dikerjakan dalam lingkungan internal perusahaan dan seluruh aset serta data bersifat <strong>konfidensial</strong> sesuai kebijakan privasi yang berlaku.</span>
+            <span>Documentation cannot be made public. This project was conducted within an internal corporate environment, and all related assets and data are <strong>confidential</strong> in accordance with company privacy policy.</span>
           </div>
         </div>
       </div>
@@ -597,7 +644,7 @@
           </div>
           <div class="privacy-note">
             <svg width="14" height="14" fill="none" stroke="#9CA3AF" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Dokumentasi tidak dapat dipublikasikan. Proyek ini dikerjakan dalam lingkungan internal perusahaan dan seluruh aset serta data bersifat <strong>konfidensial</strong> sesuai kebijakan privasi yang berlaku.</span>
+            <span>Documentation cannot be made public. This project was conducted within an internal corporate environment, and all related assets and data are <strong>confidential</strong> in accordance with company privacy policy.</span>
           </div>
         </div>
       </div>
@@ -652,6 +699,85 @@
     </div>
   </section>
 
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:#EFF6FF">
+        <svg width="18" height="18" fill="none" stroke="#1A6BFF" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg>
+      </div>
+      <h2>Certifications</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="cert-list">
+
+      <div class="cert-row">
+        <div class="cert-row-icon" style="background:#EFF6FF;color:#1A6BFF">01</div>
+        <div class="cert-row-content">
+          <div class="cert-row-name">Access Network Planner</div>
+          <div class="cert-row-org">BNSP — National Professional Certification Agency</div>
+          <div class="cert-row-desc">Certified competency in planning access network infrastructure, including link design, coverage analysis, and deployment strategy in accordance with national professional standards.</div>
+        </div>
+        <a class="cert-pdf-btn" href="sertifikat-bnsp-jaringan-akses.pdf" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Certificate (PDF)
+        </a>
+      </div>
+
+      <div class="cert-row">
+        <div class="cert-row-icon" style="background:#F5F3FF;color:#7C3AED">02</div>
+        <div class="cert-row-content">
+          <div class="cert-row-name">3D Modeling with CAD Systems</div>
+          <div class="cert-row-org">Kemnaker — Ministry of Manpower</div>
+          <div class="cert-row-desc">Hands-on training in 3D modeling and computer-aided design, covering drafting fundamentals, technical drawing, and CAD-based design workflows.</div>
+        </div>
+        <a class="cert-pdf-btn" href="sertifikat-kemnaker-cad.pdf" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Certificate (PDF)
+        </a>
+      </div>
+
+      <div class="cert-row">
+        <div class="cert-row-icon" style="background:#EFF6FF;color:#1A6BFF">03</div>
+        <div class="cert-row-content">
+          <div class="cert-row-name">CCNA: Introduction to Networks</div>
+          <div class="cert-row-org">Cisco Networking Academy</div>
+          <div class="cert-row-desc">Foundational networking course covering OSI/TCP-IP models, IP addressing, switching, routing fundamentals, and network troubleshooting.</div>
+        </div>
+        <a class="cert-pdf-btn" href="sertifikat-ccna.pdf" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Certificate (PDF)
+        </a>
+      </div>
+
+      <div class="cert-row">
+        <div class="cert-row-icon" style="background:#F0FDF4;color:#0F9B8E">04</div>
+        <div class="cert-row-content">
+          <div class="cert-row-name">Machine Learning for Data Science Projects</div>
+          <div class="cert-row-org">IBM SkillsBuild</div>
+          <div class="cert-row-desc">Applied machine learning concepts for data science workflows, including data preprocessing, model building, evaluation, and practical project implementation.</div>
+        </div>
+        <a class="cert-pdf-btn" href="sertifikat-machine-learning.pdf" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Certificate (PDF)
+        </a>
+      </div>
+
+      <div class="cert-row">
+        <div class="cert-row-icon" style="background:#FFF1F2;color:#E11D48">05</div>
+        <div class="cert-row-content">
+          <div class="cert-row-name">Cybersecurity Fundamentals</div>
+          <div class="cert-row-org">IBM SkillsBuild</div>
+          <div class="cert-row-desc">Core principles of cybersecurity including threat awareness, network security basics, risk management, and best practices for protecting digital systems.</div>
+        </div>
+        <a class="cert-pdf-btn" href="sertifikat-cybersecurity.pdf" target="_blank">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Certificate (PDF)
+        </a>
+      </div>
+
+    </div>
+  </section>
+
   <!-- AWARDS -->
   <section id="awards" class="section">
     <div class="section-header">
@@ -667,6 +793,10 @@
         <div class="cert-name">KT&G (Korea Tomorrow & Global) Scholarship Awardee</div>
         <div class="cert-org">Korea Tomorrow & Global Corporation · Scholarship Program</div>
       </div>
+      <a class="cert-proof-btn" href="bukti-ktg-scholarship.pdf" target="_blank">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        View Proof Document (PDF)
+      </a>
     </div>
   </section>
 
@@ -715,6 +845,14 @@
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
     links.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#' + current); });
   });
+
+  // Email link: mailto on mobile (opens native app), Gmail web compose on desktop
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const emailLink = document.getElementById('email-link');
+  if (emailLink && isMobile) {
+    emailLink.href = 'mailto:auroraaugest@gmail.com?subject=Portfolio%20Inquiry';
+    emailLink.removeAttribute('target');
+  }
 </script>
 </body>
 </html>
